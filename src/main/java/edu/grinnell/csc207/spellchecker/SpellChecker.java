@@ -26,18 +26,48 @@ public class SpellChecker {
 
     /** A Node of the SpellChecker structure. */
     private class Node {
-        // TODO: implement me!
+        private char letter;
+        private boolean isWord;
+        private List<Node> seq;
+        public Node(char letter, boolean isWord){
+            this.letter = letter;
+            this.isWord = isWord;
+            seq = null;
+        }
+
+
     }
 
     /** The root of the SpellChecker */
     private Node root;
 
     public SpellChecker(List<String> dict) {
-        // TODO: implement me!
+        //
     }
 
     public void add(String word) {
-        // TODO: implement me!
+        Node temp = root;
+        int iter = 0;
+        for (char c : word.toCharArray()) {
+            for(Node node: temp.seq){
+                boolean exists = false;
+                if(node.letter == c){
+                    temp = node;
+                    exists = true;
+                }
+
+                if (!exists) {
+                    //If we can't find the character add it
+                    if(iter == word.length() - 1){
+                        temp.seq.add(new Node(c, true));
+                    } else {
+                        temp.seq.add(new Node(c, false));
+                    }
+                }
+
+            }
+            iter++;
+        }
     }
 
     public boolean isWord(String word) {
